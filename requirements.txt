@@ -55,3 +55,4 @@ w3lib==2.1.2
 websockets==10.4
 yarg==0.1.9
 zipp==3.16.2
+ruff==0.1.6
