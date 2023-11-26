@@ -1,11 +1,9 @@
 FROM python:3.11.6
 
-WORKDIR /src/app
+WORKDIR /app
 
 
-COPY pyproject.toml ./
-RUN poetry install --only main
+COPY requirements.txt .
+RUN pip install -r /app/requirements.txt
 
-COPY src/main.py src/main.py
-
-CMD [ "uvicorn", "src.main:app" , "--reload", "--host=0.0.0.0"]
+COPY ./src /app/

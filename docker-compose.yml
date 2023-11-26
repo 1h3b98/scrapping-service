@@ -2,10 +2,21 @@ version: '3.4'
 
 services:
   scrapper:
-    image: scrapper
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-  
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
     ports:
-      - 8080:8080
+      - 8000:8000
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/scrapers  # MongoDB connection string
+    depends_on:
+      - app-db
+    restart: always
+
+  app-db:
+    image: mongo  # Use the official MongoDB image
+    expose:
+      - 27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    restart: always

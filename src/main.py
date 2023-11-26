@@ -1,11 +1,16 @@
-from src import FastAPI,MongoClient,routers
+from src import FastAPI, uvicorn
+from src.routers import fbScrapper
+
 
 app = FastAPI()
-client = MongoClient("localhost", 27017)
-db = client['posts']
 
-app.include_router(routers.fbScrapper.router)
+
+
+app.include_router(fbScrapper.router)
 
 @app.get("/")
 async def root():
     return "Welcome to facebook scrapper"
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
